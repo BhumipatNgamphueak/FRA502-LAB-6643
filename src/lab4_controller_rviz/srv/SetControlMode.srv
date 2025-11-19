@@ -1,0 +1,9 @@
+# Request
+int8 mode
+# mode = 0: IK Mode
+# mode = 1: Teleoperation Mode  
+# mode = 2: Auto Mode
+---
+# Response
+bool success
+string message
