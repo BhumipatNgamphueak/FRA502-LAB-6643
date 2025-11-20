@@ -16,7 +16,7 @@ cd ~/lab4_ws/src
 **Verify packages are in place:**
 ```bash
 ls ~/lab4_ws/src/
-# Expected output: lab4_controller_rviz  lab4_description
+# Expected output: lab4_controller_rviz  lab4_description  workspace_finder.py
 ```
 
 **Build workspace:**
