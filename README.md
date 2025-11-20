@@ -10,7 +10,7 @@ ROS2 implementation for controlling a 3-DOF robotic manipulator with three contr
 mkdir -p ~/lab4_ws/src
 cd ~/lab4_ws/src
 # Place lab4_controller_rviz and lab4_description packages here
-# lab4_controller_rviz and lab4_description packages should be inside /src 
+# lab4_controller_rviz,lab4_description packages and workspace_finder.py should be inside /src 
 ```
 
 **Verify packages are in place:**
@@ -41,7 +41,7 @@ ros2 launch lab4_controller_rviz lab4_rviz_launch.py
 ## Workspace Analysis
 Analyze and visualize the robot's reachable workspace:
 ```bash
-ros2 run lab4_controller_rviz workspace_analyzer_node
+ros2 run lab4_controller_rviz workspace_analyzer_node.py
 ```
 Publishes point cloud to `/workspace_points` topic (visualize in RViz). Computes workspace bounds with ground collision avoidance.
 
