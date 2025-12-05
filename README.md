@@ -5,43 +5,37 @@
 
 ROS2 implementation for controlling a 3-DOF robotic manipulator with three control modes.
 
-## Installation
-```bash
-mkdir -p ~/lab4_ws/src
-cd ~/lab4_ws/src
-# Place lab4_controller_rviz and lab4_description packages here
-# lab4_controller_rviz,lab4_description packages and workspace_finder.py should be inside /src 
-```
+## Quick Duplicate This Project
 
-**Verify packages are in place:**
-```bash
-ls ~/lab4_ws/src/
-# Expected output: lab4_controller_rviz  lab4_description  workspace_finder.py
-```
+Clone and set up this project in one go:
 
-**Build workspace:**
 ```bash
+# Clone the repository
+git clone https://github.com/BhumipatNgamphueak/FRA502-LAB-6643.git -b LAB4 ~/lab4_ws
 cd ~/lab4_ws
-colcon build 
-source install/setup.bash
-```
 
-**Make sourcing permanent (optional):**
-```bash
+# Build the workspace
+colcon build
+
+# Source the workspace
+source install/setup.bash
+
+# Make sourcing permanent (optional)
 echo "source ~/lab4_ws/install/setup.bash" >> ~/.bashrc
-```
 
-## Quick Start
-```bash
-cd ~/lab4_ws
-source install/setup.bash
+# Launch the robot
 ros2 launch lab4_controller_rviz lab4_rviz_launch.py
 ```
+
+**Prerequisites:**
+- ROS2 Humble installed
+- Python 3.10+
+- Colcon build tools
 
 ## Workspace Analysis
 Analyze and visualize the robot's reachable workspace:
 ```bash
-ros2 run lab4_controller_rviz workspace_analyzer_node.py
+ros2 run lab4_controller_rviz workspace_analyzer_node
 ```
 Publishes point cloud to `/workspace_points` topic (visualize in RViz). Computes workspace bounds with ground collision avoidance.
 
