@@ -11,7 +11,8 @@ Clone and set up this project in one go:
 
 ```bash
 # Clone the repository
-git clone https://github.com/BhumipatNgamphueak/FRA502-LAB-6643.git -b LAB4 ~/lab4_ws
+git clone https://github.com/BhumipatNgamphueak/FRA502-LAB-6643.git -b LAB4 
+~/lab4_ws
 cd ~/lab4_ws
 
 # Build the workspace
