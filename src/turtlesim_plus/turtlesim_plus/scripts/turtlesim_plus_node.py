@@ -1,34 +1,45 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+# quick skeleton; TODO fill logic
 
-# other libraries
-
-# package module
-from turtlesim_plus.ros2_plugins import TurtlesimPlusNode
-
-# RCLPY libraries, classes, functions
 import rclpy
+from rclpy.node import Node
+from turtlesim_plus_interfaces.srv import GivePosition
 
-# ROS Package
+class TurtlesimPlusNode(Node):
+    def __init__(self):
+        super().__init__('turtlesim_plus_node')
+        
+        # Service server
+        self.spawn_pizza_srv = self.create_service(
+            GivePosition, '/spawn_pizza', self.spawn_pizza_callback)
+        
+        # Parameter
+        self.declare_parameter('yaml_path', 'pizza_registry.yaml')
+        self.yaml_path = self.get_parameter('yaml_path').value
+        
+        # State variables
+        self.pizza_names = []
+        
+        self.get_logger().info('Turtlesim plus node started')
+    
+    def spawn_pizza_callback(self, request, response):
+        # TODO: call /spawn_turtle with current pose
+        # TODO: track pizza names in a list
+        self.get_logger().info(f'Would spawn pizza at x={request.x:.2f}, y={request.y:.2f}')
+        self.pizza_names.append(f'pizza_{len(self.pizza_names)}')
+        return response
 
-# Define the main function that will run when this script is execute
 def main(args=None):
     rclpy.init(args=args)
     node = TurtlesimPlusNode()
+    
     try:
-        while rclpy.ok(): # while the node isn't shut down
-            rclpy.spin_once(node)
+        rclpy.spin(node)
     except KeyboardInterrupt:
-        node.get_logger().info('Node has stopped cleanly.')
-    except SystemExit:
-        node.get_logger().info('Node is complete.')
-    except BaseException as exc:
-        type = exc.__class__.__name__
-        node.get_logger().error(f'{type} exception in node has occured.')
-        raise # raise without argument = raise the last exception
-    finally:
-        node.destroy_node()
-        rclpy.shutdown() 
+        pass
+    
+    node.destroy_node()
+    rclpy.shutdown()
 
-# If this script is being run as the main program, call the main function
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

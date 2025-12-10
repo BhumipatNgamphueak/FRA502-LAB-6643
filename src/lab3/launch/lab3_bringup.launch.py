@@ -7,8 +7,24 @@ def generate_launch_description():
 
     launch_description = LaunchDescription()
 
-    turtle1_ns = "eater"
+    turtle1_ns = "Peemai"
     turtle2_ns = "killer"
+
+    sampling_frequency_arg = DeclareLaunchArgument(
+        'sampling_frequency',
+        default_value='100.0',
+        description='Sampling frequency for eater and killer nodes in Hz'
+    )
+
+    eater_name_arg = DeclareLaunchArgument(
+        'eater_name',
+        default_value='eater_turtle',
+        description='Target name for killer node'
+    )
+
+    # Get launch configurations
+    sampling_frequency = LaunchConfiguration('sampling_frequency')
+    eater_name = LaunchConfiguration('eater_name')
 
     Turtlesim =  Node(
             package='turtlesim_plus',
@@ -23,17 +39,18 @@ def generate_launch_description():
             executable='eater.py',
             name='Eater',
             parameters = [
-                {'sampling_frequency' : 10.0}
+                {'sampling_frequency' : sampling_frequency}
             ]
         )
     
     Killer = Node(
             package='lab3',
-            namespace=turtle2_ns,
+            namespace = turtle2_ns,
             executable='killer.py',
             name='Killer',
             parameters = [
-                {'sampling_frequency' : 10.0}
+                {'sampling_frequency' : sampling_frequency},
+                {'target_name' : turtle1_ns}
             ],
         )
     
@@ -50,6 +67,8 @@ def generate_launch_description():
         shell=True
     )
 
+    launch_description.add_action(sampling_frequency_arg)
+    launch_description.add_action(eater_name_arg)
     launch_description.add_action(Turtlesim)
     # launch_description.add_action(Eater)
     # launch_description.add_action(Killer)
@@ -60,27 +79,3 @@ def generate_launch_description():
     launch_description.add_action(Killer)
 
     return launch_description
-        # Node(
-        #     package='turtlesim_plus',
-        #     namespace='',
-        #     executable='turtlesim_plus_node.py',
-        #     name='turtlesim'
-        # ),
-        # Node(
-        #     package='lab3',
-        #     namespace='turtle1',
-        #     executable='eater.py',
-        #     name='eater',
-        #     parameters = [
-        #         {'sampling_frequency' : 10.0}
-        #     ]
-        # ),
-        #   Node(
-        #     package='lab3',
-        #     namespace='turtle2',
-        #     executable='killer.py',
-        #     name='killer',
-        #     parameters = [
-        #         {'sampling_frequency' : 10.0}
-        #     ],
-        # ),

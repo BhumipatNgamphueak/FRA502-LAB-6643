@@ -123,7 +123,7 @@ def draw_polygon_alpha(surface, color, points):
     pygame.draw.polygon(shape_surf, color, [(x - min_x, y - min_y) for x, y in points])
     surface.blit(shape_surf, target_rect)
 class Scanner():
-    def __init__(self, radius:float=4.0,range:float=math.pi/3,color=(255,0,0,127)):
+    def __init__(self, radius:float=1.6,range:float=math.pi/3,color=(255,0,0,127)):
         self.radius = radius
         self.range = range # 
         self.detection_types = []
@@ -155,11 +155,10 @@ class Scanner():
                     entity_array.append(entity)
         return scanner_data_array,entity_array
     def render(self,screen,pose):
-        vertices = [(pose[0]/5.44*250,500-pose[1]/5.44*250)]
-        for i in range(int(math.degrees(-self.range / 2)), int(math.degrees(self.range / 2)) + 1):
-            rads = math.radians(i)+pose[2]
+        vertices = []
+        for i in range(0, 360):
+            rads = math.radians(i)
             vertices.append(((pose[0] + self.radius * math.cos(rads))/5.44*250,500-(pose[1] + self.radius * math.sin(rads))/5.44*250))
-        vertices.append((pose[0]/5.44*250,500-pose[1]/5.44*250))
         #pygame.draw.polygon(screen,pygame.color.Color(255,0,0,a=128), vertices)
         draw_polygon_alpha(screen,self.color,vertices)
 class TurtleCommandInterface(PhysicsEntity,GraphicsEntity):
@@ -185,7 +184,7 @@ class TurtleEatInterface(PhysicsEntity,GraphicsEntity):
     def __init__(self, turtle:Turtle):
         PhysicsEntity.__init__(self,name=turtle.name)
         self.turtle = turtle
-        self.eat_range = Scanner(radius=2.0,range=math.pi/3,color=(0,255,0,127))
+        self.eat_range = Scanner(radius=1.0,range=math.pi/3,color=(0,255,0,127))
         self.eat_range.add_detection_type(Pizza)
         self.edibles = []
     def set_pose(self, pose: List[float]):
