@@ -14,8 +14,8 @@ colcon build
 source install/setup.bash
 ```
 
+## Add to bashrc for Automatic Sourcing
 ```bash
-# Add to bashrc for Automatic Sourcing
 echo "source ~/FRA502-LAB-6643/install/setup.bash" >> ~/.bashrc
 ```
 
