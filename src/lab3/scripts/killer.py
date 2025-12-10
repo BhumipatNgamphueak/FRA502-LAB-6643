@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-
-from lab2.dummy_module import dummy_function, dummy_var
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist, Point
