@@ -8,7 +8,7 @@ from nav_msgs.msg import Odometry
 from tf2_ros import TransformBroadcaster
 from tf_transformations import quaternion_from_euler
 from geometry_msgs.msg import TransformStamped
-import numpy as np 
+import numpy as np
 
 class DummyNode(Node):
     def __init__(self):
@@ -19,7 +19,7 @@ class DummyNode(Node):
         self.Odom_publisher2 = self.create_publisher(Odometry, '/odom2',10)
         self.tf_broadcaster = TransformBroadcaster(self)
         self.robot_pose = [0.0,0.0,0.0]
-        
+
     def Odo_pub(self, msg, turtle_name,child_frame_id):
         self.robot_pose[0] = msg.x
         self.robot_pose[1] = msg.y
@@ -29,23 +29,23 @@ class DummyNode(Node):
         odom_msg.header.frame_id = "odom"
         odom_msg.child_frame_id = child_frame_id
 
-        odom_msg.pose.pose.position.x = self.robot_pose[0] 
+        odom_msg.pose.pose.position.x = self.robot_pose[0]
         odom_msg.pose.pose.position.y = self.robot_pose[1]
 
         q = quaternion_from_euler(0,0,self.robot_pose[2])
         odom_msg.pose.pose.orientation.x = q[0]
-        odom_msg.pose.pose.orientation.x = q[1]
-        odom_msg.pose.pose.orientation.x = q[2]
-        odom_msg.pose.pose.orientation.x = q[3]
+        odom_msg.pose.pose.orientation.y = q[1]
+        odom_msg.pose.pose.orientation.z = q[2]
+        odom_msg.pose.pose.orientation.w = q[3]
 
         if turtle_name == "turtle1" :
             self.Odom_publisher1.publish(odom_msg)
         elif turtle_name == "turtle2" :
             self.Odom_publisher2.publish(odom_msg)
-        
+
         t = TransformStamped()
         t.header.stamp = self.get_clock().now().to_msg()
-        t.header.frame_id = "Odom"
+        t.header.frame_id = "odom"
         t.child_frame_id = child_frame_id
 
         t.transform.translation.x = self.robot_pose[0]
