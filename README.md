@@ -4,7 +4,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/BhumipatNgamphueak/FRA502-LAB-6643.git -b LAB3 
+git clone -b LAB3 https://github.com/BhumipatNgamphueak/FRA502-LAB-6643.git 
 cd FRA502-LAB-6643
 
 # Build the workspace
